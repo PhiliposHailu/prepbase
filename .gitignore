@@ -1,0 +1,17 @@
+# Security: DO NOT share your secrets
+.env
+
+# Binaries
+main
+main.exe
+*.exe
+*.test
+*.prof
+
+# OS-specific junk 
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
