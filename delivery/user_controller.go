@@ -17,14 +17,29 @@ func NewUserController(u domain.UserUsecase) *UserController {
 	}
 }
 
+type RegisterRequest struct {
+	Username string `json:"username" binding:"required"`
+	Email    string `json:"email" binding:"required,email"`
+	Password string `json:"password" binding:"required,min=6"`
+	Bio      string `json:"bio"`
+	Role     string `json:"role"`
+}
+
 func (uc *UserController) Register(c *gin.Context) {
-	var user domain.User
+	var user RegisterRequest
 	if err := c.BindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON payload"})
 		return
 	}
 
-	if err := uc.userUsecase.Register(&user); err != nil {
+	domainUser := &domain.User{
+		Username: user.Username,
+		Email:    user.Email,
+		Password: user.Password,
+		Bio:      user.Bio,
+		Role:     user.Role,
+	}
+	if err := uc.userUsecase.Register(domainUser); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -68,7 +83,6 @@ func (uc *UserController) GetProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-
 func (uc *UserController) UpdateProfile(c *gin.Context) {
 	var user domain.User
 	if err := c.BindJSON(&user); err != nil {
@@ -87,8 +101,8 @@ func (uc *UserController) UpdateProfile(c *gin.Context) {
 }
 
 func (uc *UserController) PromoteUser(c *gin.Context) {
-	targetID := c.Param("id")       
-	adminID := c.GetString("user_id") 
+	targetID := c.Param("id")
+	adminID := c.GetString("user_id")
 
 	if err := uc.userUsecase.PromoteUser(adminID, targetID); err != nil {
 		c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})
@@ -99,9 +113,9 @@ func (uc *UserController) PromoteUser(c *gin.Context) {
 }
 
 func (uc *UserController) DeleteUser(c *gin.Context) {
-	targetID := c.Param("id")              
-	actorID := c.GetString("user_id")     
-	actorRole := c.GetString("role")      
+	targetID := c.Param("id")
+	actorID := c.GetString("user_id")
+	actorRole := c.GetString("role")
 
 	err := uc.userUsecase.DeleteUser(actorID, actorRole, targetID)
 	if err != nil {

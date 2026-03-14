@@ -7,7 +7,7 @@ import (
 	"github.com/philipos/prepbase/infrastructure"
 )
 
-func SetupRouter(userController *delivery.UserController, questionCtrl *delivery.QuestionController, jwtSvc domain.JWTService) *gin.Engine {
+func SetupRouter(userController *delivery.UserController, questionCtrl *delivery.QuestionController, cCtrl *delivery.CommentController, jwtSvc domain.JWTService) *gin.Engine {
 	r := gin.Default()
 
 	// Public Routes
@@ -17,6 +17,7 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 	// Anyone can read questions!
 	r.GET("/questions", questionCtrl.FetchAll)
 	r.GET("/questions/:id", questionCtrl.GetByID)
+	r.GET("/questions/:question_id/comments", cCtrl.GetByQuestionID)
 
 	// Protected Routes (Require valid JWT)
 	protected := r.Group("/users")
@@ -32,6 +33,11 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 		protected.POST("/questions", questionCtrl.Create)
 		protected.PUT("/questions/:id", questionCtrl.Update)
 		protected.DELETE("/questions/:id", questionCtrl.Delete)
+
+		// Comments
+		protected.POST("/questions/:question_id/comments", cCtrl.Create)
+		protected.PUT("/comments/:comment_id", cCtrl.Update)
+		protected.DELETE("/comments/:comment_id", cCtrl.Delete)
 	}
 
 	return r

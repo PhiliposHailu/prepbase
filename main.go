@@ -40,18 +40,21 @@ func main() {
 
 	// Repositories
 	userRepo := repository.NewUserRepository(db, "users")
-	questionRepo := repository.NewQuestionRepository(db, "questions") 
+	questionRepo := repository.NewQuestionRepository(db, "questions")
+	commentRepo := repository.NewCommentRepository(db, "comments") 
 
 	// Usecases
 	userUsecase := usecase.NewUserUsecase(userRepo, pwdSvc, jwtSvc)
 	questionUsecase := usecase.NewQuestionUsecase(questionRepo) 
+	commentUsecase := usecase.NewCommentUsecase(commentRepo)
 
 	// Controllers
 	userController := delivery.NewUserController(userUsecase)
 	questionController := delivery.NewQuestionController(questionUsecase) 
+	commentController := delivery.NewCommentController(commentUsecase)
 
 	// Router
-	r := router.SetupRouter(userController, questionController, jwtSvc)
+	r := router.SetupRouter(userController, questionController, commentController, jwtSvc)
 
 	log.Println("🚀 Server running on port 8080 ??? ;)")
 	r.Run(":8000")
