@@ -33,6 +33,7 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 		protected.POST("/questions", questionCtrl.Create)
 		protected.PUT("/questions/:id", questionCtrl.Update)
 		protected.DELETE("/questions/:id", questionCtrl.Delete)
+		protected.POST("/questions/:id/hint", questionCtrl.GenerateAIHint)
 
 		// Upvote and Downvote Questions
 		protected.POST("/questions/:id/upvote", questionCtrl.Upvote)

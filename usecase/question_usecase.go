@@ -3,6 +3,7 @@ package usecase
 import (
 	"errors"
 	"strings"
+	"sync"
 
 	"github.com/philipos/prepbase/domain"
 )
@@ -11,6 +12,7 @@ type questionUsecase struct {
 	questionRepo domain.QuestionRepository
 	voteRepo     domain.VoteRepository
 	cache        domain.CacheService
+	aiSvc        domain.AIService
 }
 
 type Vote struct {
@@ -19,12 +21,45 @@ type Vote struct {
 	Value      int    `json:"value" bson:"value"`
 }
 
-func NewQuestionUsecase(qRepo domain.QuestionRepository, vRepo domain.VoteRepository, cache domain.CacheService) domain.QuestionUsecase {
+func NewQuestionUsecase(qRepo domain.QuestionRepository, vRepo domain.VoteRepository, cache domain.CacheService, aiSvc domain.AIService) domain.QuestionUsecase {
 	return &questionUsecase{
 		questionRepo: qRepo,
 		voteRepo:     vRepo,
 		cache:        cache,
+		aiSvc:        aiSvc,
 	}
+}
+
+func (u *questionUsecase) GenerateAIHint(id string) (string, error) {
+	// 1. Fetch the question content
+	q, err := u.GetByID(id)
+	if err != nil {
+		return "", errors.New("question not found")
+	}
+
+	// 2. Concurrency Setup
+	var hint string
+	var aiErr error
+	var wg sync.WaitGroup
+
+	wg.Add(1) // Tell the WaitGroup we are waiting for 1 task
+
+	// 3. Launch the Goroutine
+	go func(content string) {
+		defer wg.Done() // Mark task as done when this function finishes
+		
+		// Call the AI Service
+		hint, aiErr = u.aiSvc.GenerateHint(content)
+	}(q.Content)
+
+	// 4. Wait for the Goroutine to finish before continuing
+	wg.Wait()
+
+	if aiErr != nil {
+		return "", aiErr
+	}
+
+	return hint, nil
 }
 
 func (u *questionUsecase) Create(q *domain.Question) error {

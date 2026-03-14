@@ -17,3 +17,7 @@ type CacheService interface {
 	Set(key string, value interface{})
 	Get(key string) (interface{}, bool)
 }
+
+type AIService interface {
+	GenerateHint(content string) (string, error)
+}

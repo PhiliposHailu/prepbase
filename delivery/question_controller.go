@@ -18,6 +18,18 @@ func NewQuestionController(qu domain.QuestionUsecase) *QuestionController {
 	}
 }
 
+func (qc *QuestionController) GenerateAIHint(c *gin.Context) {
+	id := c.Param("id")
+
+	hint, err := qc.qUsecase.GenerateAIHint(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"hint": hint})
+}
+
 func (qc *QuestionController) Create(c *gin.Context) {
 	var q domain.Question
 	if err := c.BindJSON(&q); err != nil {

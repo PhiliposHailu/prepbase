@@ -44,11 +44,12 @@ func main() {
 	questionRepo := repository.NewQuestionRepository(db, "questions")
 	commentRepo := repository.NewCommentRepository(db, "comments") 
 	cacheSvc := infrastructure.NewMemoryCache()
+	aiSvc := infrastructure.NewAIService()
 
 
 	// Usecases
 	userUsecase := usecase.NewUserUsecase(userRepo, pwdSvc, jwtSvc)
-	questionUsecase := usecase.NewQuestionUsecase(questionRepo, voteRepo, cacheSvc) 
+	questionUsecase := usecase.NewQuestionUsecase(questionRepo, voteRepo, cacheSvc, aiSvc) 
 	commentUsecase := usecase.NewCommentUsecase(commentRepo)
 
 	// Controllers

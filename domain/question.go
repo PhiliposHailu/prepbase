@@ -51,4 +51,5 @@ type QuestionUsecase interface {
 
 	Upvote(userID string, questionID string) error
 	Downvote(userID string, questionID string) error
+	GenerateAIHint(id string) (string, error)
 }
