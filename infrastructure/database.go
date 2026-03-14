@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -28,5 +29,18 @@ func ConnectDB() *mongo.Database {
 	}
 
 	log.Println("✅ Connected to MongoDB 'prepbase_db'")
-	return client.Database(dbName)
+	database := client.Database(dbName)
+
+	// Create Unique Compound Index for Votes
+	// This physically prevents a user from voting on the same question twice
+	voteIndex := mongo.IndexModel{
+		Keys: bson.D{
+			{Key: "user_id", Value: 1},
+			{Key: "question_id", Value: 1},
+		},
+		Options: options.Index().SetUnique(true),
+	}
+	_, _ = database.Collection("votes").Indexes().CreateOne(context.TODO(), voteIndex)
+	
+	return database
 }

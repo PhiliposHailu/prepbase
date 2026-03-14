@@ -12,3 +12,8 @@ type JWTService interface {
 	GenerateRefreshToken(userID string, role string) (string, error)
 	ValidateToken(token string) (jwt.MapClaims, error)
 }
+
+type CacheService interface {
+	Set(key string, value interface{})
+	Get(key string) (interface{}, bool)
+}

@@ -17,7 +17,7 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 	// Anyone can read questions!
 	r.GET("/questions", questionCtrl.FetchAll)
 	r.GET("/questions/:id", questionCtrl.GetByID)
-	r.GET("/questions/:question_id/comments", cCtrl.GetByQuestionID)
+	r.GET("/questions/:id/comments", cCtrl.GetByQuestionID)
 
 	// Protected Routes (Require valid JWT)
 	protected := r.Group("/users")
@@ -34,10 +34,15 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 		protected.PUT("/questions/:id", questionCtrl.Update)
 		protected.DELETE("/questions/:id", questionCtrl.Delete)
 
+		// Upvote and Downvote Questions
+		protected.POST("/questions/:id/upvote", questionCtrl.Upvote)
+		protected.POST("/questions/:id/downvote", questionCtrl.Downvote)
+
 		// Comments
-		protected.POST("/questions/:question_id/comments", cCtrl.Create)
+		protected.POST("/questions/:id/comments", cCtrl.Create)
 		protected.PUT("/comments/:comment_id", cCtrl.Update)
 		protected.DELETE("/comments/:comment_id", cCtrl.Delete)
+
 	}
 
 	return r

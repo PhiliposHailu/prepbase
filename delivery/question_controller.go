@@ -53,7 +53,7 @@ func (qc *QuestionController) FetchAll(c *gin.Context) {
 	// Read pagination parameters from the URL query string (e.g., ?limit=10&cursor=timestamp)
 	cursor := c.Query("cursor")
 	limitStr := c.Query("limit")
-	
+
 	limit := 10 // default
 	if limitStr != "" {
 		if parsedLimit, err := strconv.Atoi(limitStr); err == nil {
@@ -72,7 +72,7 @@ func (qc *QuestionController) FetchAll(c *gin.Context) {
 
 func (qc *QuestionController) Update(c *gin.Context) {
 	id := c.Param("id")
-	authorID := c.GetString("user_id") 
+	authorID := c.GetString("user_id")
 
 	var q domain.Question
 	if err := c.BindJSON(&q); err != nil {
@@ -95,8 +95,8 @@ func (qc *QuestionController) Update(c *gin.Context) {
 
 func (qc *QuestionController) Delete(c *gin.Context) {
 	id := c.Param("id")
-	userID := c.GetString("user_id") 
-	userRole := c.GetString("role")  
+	userID := c.GetString("user_id")
+	userRole := c.GetString("role")
 
 	if err := qc.qUsecase.Delete(id, userID, userRole); err != nil {
 		status := http.StatusBadRequest
@@ -108,4 +108,26 @@ func (qc *QuestionController) Delete(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Question deleted successfully"})
+}
+
+func (qc *QuestionController) Upvote(c *gin.Context) {
+	questionID := c.Param("id")
+	userID := c.GetString("user_id")
+
+	if err := qc.qUsecase.Upvote(userID, questionID); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upvote"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Vote registered"})
+}
+
+func (qc *QuestionController) Downvote(c *gin.Context) {
+	questionID := c.Param("id")
+	userID := c.GetString("user_id")
+
+	if err := qc.qUsecase.Downvote(userID, questionID); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to downvote"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Vote registered"})
 }

@@ -24,7 +24,7 @@ func (cc *CommentController) Create(c *gin.Context) {
 
 	comment.AuthorID = c.GetString("user_id")
 	// The QuestionID will be passed in the URL (e.g. /questions/:id/comments)
-	comment.QuestionID = c.Param("question_id") 
+	comment.QuestionID = c.Param("id") 
 
 	if err := cc.cUsecase.Create(&comment); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -35,7 +35,7 @@ func (cc *CommentController) Create(c *gin.Context) {
 }
 
 func (cc *CommentController) GetByQuestionID(c *gin.Context) {
-	qID := c.Param("question_id")
+	qID := c.Param("id")
 	comments, err := cc.cUsecase.GetByQuestionID(qID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch comments"})
