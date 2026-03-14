@@ -31,15 +31,15 @@ func (s *geminiService) GenerateHint(content string) (string, error) {
 	ctx := context.Background()
 	client, err := genai.NewClient(ctx, option.WithAPIKey(s.apiKey))
 
-	models := client.ListModels(ctx)
+	// models := client.ListModels(ctx)
 
-	for {
-		m, err := models.Next()
-		if err != nil {
-			break
-		}
-		fmt.Println(m.Name)
-	}
+	// for {
+	// 	m, err := models.Next()
+	// 	if err != nil {
+	// 		break
+	// 	}
+	// 	fmt.Println(m.Name)
+	// }
 
 	if err != nil {
 		return "", err
