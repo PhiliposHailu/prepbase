@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/philipos/prepbase/domain"
@@ -24,7 +25,7 @@ func NewUserUsecase(r domain.UserRepository, p domain.PasswordService, j domain.
 // REGISTRATION & LOGIN
 
 func (u *userUsecase) Register(user *domain.User) error {
-	// Validaiton 
+	// Validaiton
 	if strings.TrimSpace(user.Email) == "" || strings.TrimSpace(user.Password) == "" {
 		return errors.New("email and password cannot be empty")
 	}
@@ -116,7 +117,7 @@ func (u *userUsecase) PromoteUser(adminID string, targetUserID string) error {
 
 	// Update Role
 	targetUser.Role = "admin"
-	
+
 	return u.userRepo.Update(targetUser)
 }
 
@@ -129,4 +130,40 @@ func (u *userUsecase) DeleteUser(actorID string, actorRole string, targetID stri
 
 	// Call the Soft Delete in the repository
 	return u.userRepo.Delete(targetID)
+}
+
+func (u *userUsecase) RefreshToken(refreshToken string) (string, error) {
+	// 1. Validate the refresh token
+	claims, err := u.jwtSvc.ValidateToken(refreshToken)
+	if err != nil {
+		return "", errors.New("invalid or expired refresh token")
+	}
+
+	// 2. Extract user info from claims
+	userID := claims["user_id"].(string)
+	role := claims["role"].(string)
+
+	// 3. Generate a NEW access token
+	newAccessToken, err := u.jwtSvc.GenerateAccessToken(userID, role)
+	if err != nil {
+		return "", errors.New("failed to generate new access token")
+	}
+
+	return newAccessToken, nil
+}
+
+func (u *userUsecase) ForgotPassword(email string) error {
+	_, err := u.userRepo.GetByEmail(email)
+	if err != nil {
+		return errors.New("user not found")
+	}
+
+	// CONCURRENCY: Send email in a background Goroutine so the API doesn't freeze!
+	go func(targetEmail string) {
+		// In a real app, this connects to Mailtrap/SendGrid.
+		// For this assignment, we just simulate it.
+		fmt.Printf("📧 [BACKGROUND WORKER]: Sending password reset link to %s...\n", targetEmail)
+	}(email)
+
+	return nil
 }

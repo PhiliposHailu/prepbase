@@ -1,0 +1,706 @@
+{
+  "info": {
+    "_postman_id": "d038d19a-b59d-4ebb-b192-52bb6c987b6e",
+    "name": "Prep_Base",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40420601"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "postQuestion",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0MzAwMzMsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.I83QyUQDDOL-uCDCoaz-T2_egLRk7VjabPY94rAplV0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Two Sum - Array Search\",\n  \"content\": \"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.\",\n  \"experience\": \"This was the first question in my technical phone screen. The interviewer was super nice but wanted me to optimize it from O(n^2) to O(n) using a Hash Map.\",\n  \"difficulty\": \"Easy\",\n  \"company\": \"Google\",\n  \"tags\": [\"Arrays\", \"Hash Map\", \"Phone Screen\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/questions",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetProfile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODU0MzksInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjUzOWU0NDdjMDFiNTg3NDk3NThiMyJ9.e1lagoEum8-bXHQ1eSaEi_086-n06mB-EWf4YX2ufgc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Two Sum - Array Search\",\n  \"content\": \"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.\",\n  \"experience\": \"This was the first question in my technical phone screen. The interviewer was super nice but wanted me to optimize it from O(n^2) to O(n) using a Hash Map.\",\n  \"difficulty\": \"Easy\",\n  \"company\": \"Google\",\n  \"tags\": [\"Arrays\", \"Hash Map\", \"Phone Screen\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/profile",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODU0MzksInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjUzOWU0NDdjMDFiNTg3NDk3NThiMyJ9.e1lagoEum8-bXHQ1eSaEi_086-n06mB-EWf4YX2ufgc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Two Sum - Array Search\",\n  \"content\": \"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.\",\n  \"experience\": \"This was the first question in my technical phone screen. The interviewer was super nice but wanted me to optimize it from O(n^2) to O(n) using a Hash Map.\",\n  \"difficulty\": \"Easy\",\n  \"company\": \"Google\",\n  \"tags\": [\"Arrays\", \"Hash Map\", \"Phone Screen\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/69b539e447c01b58749758b3",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "69b539e447c01b58749758b3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Promot",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODYxMDcsInJvbGUiOiJhZG1pbiIsInVzZXJfaWQiOiI2OWI0NWMwZTVmZWNkYzE0OGUwMDM0ZTIifQ.CP9IHTWG7X5BHFkOJbDW1Oj6XKAVjtaangY5JO4rrIw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Two Sum - Array Search\",\n  \"content\": \"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.\",\n  \"experience\": \"This was the first question in my technical phone screen. The interviewer was super nice but wanted me to optimize it from O(n^2) to O(n) using a Hash Map.\",\n  \"difficulty\": \"Easy\",\n  \"company\": \"Google\",\n  \"tags\": [\"Arrays\", \"Hash Map\", \"Phone Screen\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/69b539e447c01b58749758b3/promote",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "69b539e447c01b58749758b3",
+                "promote"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateProfile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODU0MzksInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjUzOWU0NDdjMDFiNTg3NDk3NThiMyJ9.e1lagoEum8-bXHQ1eSaEi_086-n06mB-EWf4YX2ufgc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"Charles the piza king\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/profile",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"philipos_dev\",\n  \"email\": \"philipos@example.com\",\n  \"password\": \"StrongPassword123!\",\n  \"bio\": \"I am a backend developer building PrepBase.\",\n  \"role\": \"user\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \nemail\n\"charlie@prepbase.com\"\npassword\n\"Password123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/login",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "questionVote",
+      "item": [
+        {
+          "name": "Upvote",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0NzE4NzMsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.ROj_aL_hR_35UgnVukmCH2ZmOirN3_ghr3aoL0uxyq0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "localhost:8000/users/questions/69b4620224c342aec286b8d3/upvote",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions",
+                "69b4620224c342aec286b8d3",
+                "upvote"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Downvote",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0NzE4NzMsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.ROj_aL_hR_35UgnVukmCH2ZmOirN3_ghr3aoL0uxyq0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "localhost:8000/users/questions/69b4620224c342aec286b8d3/downvote",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions",
+                "69b4620224c342aec286b8d3",
+                "downvote"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODYyMzgsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjUzOWU0NDdjMDFiNTg3NDk3NThiMyJ9.YVIyPCfMKjCrvUscn1avCc1XDLWJu8UTEuNnnDME6Ok",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Number of Islands Test and del\",\n  \"content\": \"Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.\",\n  \"experience\": \"Asked during the virtual onsite. We spent 20 minutes discussing DFS vs BFS. I ended up writing the DFS solution because it's less code, but they asked about call stack limits.\",\n  \"difficulty\": \"Medium\",\n  \"company\": \"Amazon\",\n  \"tags\":[\"Graphs\", \"DFS\", \"BFS\", \"Matrix\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/questions",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODYyMzgsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjUzOWU0NDdjMDFiNTg3NDk3NThiMyJ9.YVIyPCfMKjCrvUscn1avCc1XDLWJu8UTEuNnnDME6Ok",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Number of Islands Test and del was updated\",\n  \"content\": \"also Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.\"\n\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/questions/69b53d2647c01b58749758b4",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions",
+                "69b53d2647c01b58749758b4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODYyMzgsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjUzOWU0NDdjMDFiNTg3NDk3NThiMyJ9.YVIyPCfMKjCrvUscn1avCc1XDLWJu8UTEuNnnDME6Ok",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Number of Islands Test and del was updated\",\n  \"content\": \"also Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.\"\n\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/questions/69b53d2647c01b58749758b4",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions",
+                "69b53d2647c01b58749758b4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AI",
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "localhost:8000/users/questions/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetAll",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODQyMjIsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.47xAhHjQG-DklECoLbu5qREL8likX68dehsz42eUcZU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8000/questions",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "questions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetById",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODQyMjIsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.47xAhHjQG-DklECoLbu5qREL8likX68dehsz42eUcZU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8000/questions/69b4620224c342aec286b8d3",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "questions",
+                "69b4620224c342aec286b8d3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "GetById",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODQyMjIsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.47xAhHjQG-DklECoLbu5qREL8likX68dehsz42eUcZU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8000/questions/69b4620224c342aec286b8d3/comments",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "questions",
+                "69b4620224c342aec286b8d3",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODQyMjIsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.47xAhHjQG-DklECoLbu5qREL8likX68dehsz42eUcZU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"nice thank you so much\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/questions/69b4620224c342aec286b8d3/comments",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "questions",
+                "69b4620224c342aec286b8d3",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODQyMjIsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.47xAhHjQG-DklECoLbu5qREL8likX68dehsz42eUcZU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"nice thank you so much . update test\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/comments/69b536c147c01b58749758b0",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "comments",
+                "69b536c147c01b58749758b0"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzM0ODQyMjIsInJvbGUiOiJ1c2VyIiwidXNlcl9pZCI6IjY5YjQ1YjljNWZlY2RjMTQ4ZTAwMzRlMSJ9.47xAhHjQG-DklECoLbu5qREL8likX68dehsz42eUcZU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/users/comments/69b536c147c01b58749758b0",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "users",
+                "comments",
+                "69b536c147c01b58749758b0"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "adminLogin",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"philip@exam.com\",\n  \"password\": \"password123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8000/login",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -13,6 +13,9 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 	// Public Routes
 	r.POST("/register", userController.Register)
 	r.POST("/login", userController.Login)
+	r.POST("/refresh", userController.RefreshToken)
+	r.POST("/forgot-password", userController.ForgotPassword)
+	r.POST("/logout", userController.Logout)
 
 	// Anyone can read questions!
 	r.GET("/questions", questionCtrl.FetchAll)

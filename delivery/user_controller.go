@@ -125,3 +125,32 @@ func (uc *UserController) DeleteUser(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "User deactivated successfully"})
 }
+
+func (uc *UserController) RefreshToken(c *gin.Context) {
+	var body struct { RefreshToken string `json:"refresh_token"` }
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": "Invalid request"})
+		return
+	}
+
+	newAccess, err := uc.userUsecase.RefreshToken(body.RefreshToken)
+	if err != nil {
+		c.JSON(401, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"access_token": newAccess})
+}
+
+func (uc *UserController) ForgotPassword(c *gin.Context) {
+	var body struct { Email string `json:"email"` }
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(400, gin.H{"error": "Invalid request"})
+		return
+	}
+
+	if err := uc.userUsecase.ForgotPassword(body.Email); err != nil {
+		c.JSON(404, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(200, gin.H{"message": "If the email exists, a reset link has been sent."})
+}
