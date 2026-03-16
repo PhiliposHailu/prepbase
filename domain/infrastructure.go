@@ -1,6 +1,10 @@
 package domain
 
-import "github.com/golang-jwt/jwt/v5"
+import (
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
+)
 
 type PasswordService interface {
 	HashPassword(password string) (string, error)
@@ -14,7 +18,7 @@ type JWTService interface {
 }
 
 type CacheService interface {
-	Set(key string, value interface{})
+	Set(key string, value interface{}, ttl time.Duration)
 	Get(key string) (interface{}, bool)
 }
 

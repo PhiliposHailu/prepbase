@@ -28,4 +28,7 @@ type UserUsecase interface {
 	UpdateProfile(user *User) error
 	PromoteUser(adminID string, targetUserID string) error
 	DeleteUser(actorID string, actorRole string, targetID string) error
+	RefreshToken(refreshToken string) (string, error)
+	ForgotPassword(email string) error
+	ResetPassword(token string, newPassword string) error
 }

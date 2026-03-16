@@ -53,12 +53,12 @@ func main() {
 	commentUsecase := usecase.NewCommentUsecase(commentRepo)
 
 	// Controllers
-	userController := delivery.NewUserController(userUsecase)
+	userController := delivery.NewUserController(userUsecase, cacheSvc)
 	questionController := delivery.NewQuestionController(questionUsecase) 
 	commentController := delivery.NewCommentController(commentUsecase)
 
 	// Router
-	r := router.SetupRouter(userController, questionController, commentController, jwtSvc)
+	r := router.SetupRouter(userController, questionController, commentController, jwtSvc, cacheSvc)
 
 	log.Println("🚀 Server running on port 8080 ??? ;)")
 	r.Run(":8000")

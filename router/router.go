@@ -7,7 +7,7 @@ import (
 	"github.com/philipos/prepbase/infrastructure"
 )
 
-func SetupRouter(userController *delivery.UserController, questionCtrl *delivery.QuestionController, cCtrl *delivery.CommentController, jwtSvc domain.JWTService) *gin.Engine {
+func SetupRouter(userController *delivery.UserController, questionCtrl *delivery.QuestionController, cCtrl *delivery.CommentController, jwtSvc domain.JWTService, cachSvc domain.CacheService) *gin.Engine {
 	r := gin.Default()
 
 	// Public Routes
@@ -24,7 +24,7 @@ func SetupRouter(userController *delivery.UserController, questionCtrl *delivery
 
 	// Protected Routes (Require valid JWT)
 	protected := r.Group("/users")
-	protected.Use(infrastructure.AuthMiddleware(jwtSvc))
+	protected.Use(infrastructure.AuthMiddleware(jwtSvc, cachSvc))
 	{
 		// Users
 		protected.GET("/profile", userController.GetProfile)

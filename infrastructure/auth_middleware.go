@@ -8,7 +8,7 @@ import (
 	"github.com/philipos/prepbase/domain"
 )
 
-func AuthMiddleware(jwtSvc domain.JWTService) gin.HandlerFunc {
+func AuthMiddleware(jwtSvc domain.JWTService, cachSvc domain.CacheService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
@@ -17,6 +17,11 @@ func AuthMiddleware(jwtSvc domain.JWTService) gin.HandlerFunc {
 		}
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		// CHECK THE BLACKLIST FIRST
+		if _, blacklisted := cachSvc.Get("blacklist_" + tokenString); blacklisted {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Token has been invalidated (Logged out)"})
+			return
+		}
 
 		claims, err := jwtSvc.ValidateToken(tokenString)
 		if err != nil {

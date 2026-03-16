@@ -3,6 +3,7 @@ package usecase
 import (
 	"errors"
 	"fmt"
+	"net/smtp"
 	"strings"
 
 	"github.com/philipos/prepbase/domain"
@@ -153,17 +154,58 @@ func (u *userUsecase) RefreshToken(refreshToken string) (string, error) {
 }
 
 func (u *userUsecase) ForgotPassword(email string) error {
-	_, err := u.userRepo.GetByEmail(email)
+	user, err := u.userRepo.GetByEmail(email)
 	if err != nil {
 		return errors.New("user not found")
 	}
 
-	// CONCURRENCY: Send email in a background Goroutine so the API doesn't freeze!
-	go func(targetEmail string) {
-		// In a real app, this connects to Mailtrap/SendGrid.
-		// For this assignment, we just simulate it.
-		fmt.Printf("📧 [BACKGROUND WORKER]: Sending password reset link to %s...\n", targetEmail)
-	}(email)
+	// Create a secure Reset Toke
+	resetToken, _ := u.jwtSvc.GenerateAccessToken(user.ID, "reset")
+	resetLink := "http://localhost:8000/reset-password?token=" + resetToken
+
+	// Send Email in the background
+	go func(targetEmail, link string) {
+		// Replace with YOUR Mailtrap credentials
+		username := "414a825bc4f81a"
+		password := "c2d9efbec9d891"
+		host := "sandbox.smtp.mailtrap.io"
+		port := "2525"
+
+		auth := smtp.PlainAuth("", username, password, host)
+
+		from := "noreply@prepbase.com"
+		to := []string{targetEmail}
+		msg := []byte("Subject: Password Reset\r\n\r\nClick here to reset your password: " + link)
+
+		err := smtp.SendMail(host+":"+port, auth, from, to, msg)
+		if err != nil {
+			fmt.Println("Error sending email:", err)
+		} else {
+			fmt.Println("✅ Reset email caught by Mailtrap!")
+		}
+	}(email, resetLink)
 
 	return nil
+}
+
+func (u *userUsecase) ResetPassword(token string, newPassword string) error {
+	// 1. Verify the reset token
+	claims, err := u.jwtSvc.ValidateToken(token)
+	if err != nil {
+		return errors.New("invalid or expired reset link")
+	}
+
+	// 2. Find the user
+	userID := claims["user_id"].(string)
+	user, err := u.userRepo.GetByID(userID)
+	if err != nil {
+		return err
+	}
+
+	// 3. Hash the new password
+	hashedPwd, _ := u.pwdSvc.HashPassword(newPassword)
+	user.Password = hashedPwd
+
+	// 4. Update the database
+	return u.userRepo.Update(user)
 }

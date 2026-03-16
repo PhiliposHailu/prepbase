@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/philipos/prepbase/domain"
 )
@@ -47,7 +48,7 @@ func (u *questionUsecase) GenerateAIHint(id string) (string, error) {
 	// 3. Launch the Goroutine
 	go func(content string) {
 		defer wg.Done() // Mark task as done when this function finishes
-		
+
 		// Call the AI Service
 		hint, aiErr = u.aiSvc.GenerateHint(content)
 	}(q.Content)
@@ -100,7 +101,7 @@ func (u *questionUsecase) GetByID(id string) (*domain.Question, error) {
 	}
 
 	// 3. Save to Cache for the next user!
-	u.cache.Set(cacheKey, q)
+	u.cache.Set(cacheKey, q, 1*time.Minute) // Set expiration to 1 minute
 
 	_ = u.questionRepo.IncrementViews(id)
 

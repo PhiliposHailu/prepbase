@@ -18,19 +18,20 @@ type memoryCache struct {
 }
 
 func NewMemoryCache() domain.CacheService {
-	return &memoryCache{
+	cache := &memoryCache{
 		items: make(map[string]cacheItem),
 	}
+	go cache.startGarbageCollector(5 * time.Minute)
+	return cache
 }
 
-func (c *memoryCache) Set(key string, value interface{}) {
+func (c *memoryCache) Set(key string, value interface{}, expiration time.Duration) {
 	c.mu.Lock()         // LOCK: Nobody else can read or write right now
 	defer c.mu.Unlock() // UNLOCK when done
 
-	// Store the data and set it to expire in 1 minute
 	c.items[key] = cacheItem{
 		value:      value,
-		expiration: time.Now().Add(1 * time.Minute).Unix(),
+		expiration: time.Now().Add(expiration).Unix(), // Dynamic expiration time
 	}
 }
 
@@ -45,9 +46,29 @@ func (c *memoryCache) Get(key string) (interface{}, bool) {
 
 	// Check if it expired
 	if time.Now().Unix() > item.expiration {
-		// It will naturally be overwritten next time Set() is called.
 		return nil, false 
 	}
 
 	return item.value, true
+}
+
+// THE GARBAGE COLLECTOR
+func (c *memoryCache) startGarbageCollector(interval time.Duration) {
+	// A Ticker fires an event every X minutes
+	ticker := time.NewTicker(interval)
+	
+	// Infinite loop running in the background
+	for {
+		<-ticker.C // Wait for the ticker to fire
+		
+		now := time.Now().Unix()
+
+		c.mu.Lock() // We need a full Write Lock to delete items
+		for key, item := range c.items {
+			if now > item.expiration {
+				delete(c.items, key) // Remove from RAM!
+			}
+		}
+		c.mu.Unlock()
+	}
 }

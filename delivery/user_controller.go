@@ -2,6 +2,8 @@ package delivery
 
 import (
 	"net/http"
+	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/philipos/prepbase/domain"
@@ -9,11 +11,13 @@ import (
 
 type UserController struct {
 	userUsecase domain.UserUsecase
+	cache       domain.CacheService
 }
 
-func NewUserController(u domain.UserUsecase) *UserController {
+func NewUserController(u domain.UserUsecase, c domain.CacheService) *UserController {
 	return &UserController{
 		userUsecase: u,
+		cache:       c,
 	}
 }
 
@@ -127,7 +131,9 @@ func (uc *UserController) DeleteUser(c *gin.Context) {
 }
 
 func (uc *UserController) RefreshToken(c *gin.Context) {
-	var body struct { RefreshToken string `json:"refresh_token"` }
+	var body struct {
+		RefreshToken string `json:"refresh_token"`
+	}
 	if err := c.BindJSON(&body); err != nil {
 		c.JSON(400, gin.H{"error": "Invalid request"})
 		return
@@ -142,7 +148,9 @@ func (uc *UserController) RefreshToken(c *gin.Context) {
 }
 
 func (uc *UserController) ForgotPassword(c *gin.Context) {
-	var body struct { Email string `json:"email"` }
+	var body struct {
+		Email string `json:"email"`
+	}
 	if err := c.BindJSON(&body); err != nil {
 		c.JSON(400, gin.H{"error": "Invalid request"})
 		return
@@ -153,4 +161,19 @@ func (uc *UserController) ForgotPassword(c *gin.Context) {
 		return
 	}
 	c.JSON(200, gin.H{"message": "If the email exists, a reset link has been sent."})
+}
+
+func (uc *UserController) Logout(c *gin.Context) {
+	authHeader := c.GetHeader("Authorization")
+	if authHeader == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No token provided"})
+		return
+	}
+
+	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+
+	// Blacklist the token for 15 minutes (max life of our access tokens)
+	uc.cache.Set("blacklist_"+tokenString, true, 15*time.Minute)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out. Token invalidated."})
 }

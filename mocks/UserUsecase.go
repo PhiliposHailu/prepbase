@@ -30,6 +30,24 @@ func (_m *UserUsecase) DeleteUser(actorID string, actorRole string, targetID str
 	return r0
 }
 
+// ForgotPassword provides a mock function with given fields: email
+func (_m *UserUsecase) ForgotPassword(email string) error {
+	ret := _m.Called(email)
+
+	if len(ret) == 0 {
+		panic("no return value specified for ForgotPassword")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string) error); ok {
+		r0 = rf(email)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // GetProfile provides a mock function with given fields: id
 func (_m *UserUsecase) GetProfile(id string) (*domain.User, error) {
 	ret := _m.Called(id)
@@ -113,6 +131,34 @@ func (_m *UserUsecase) PromoteUser(adminID string, targetUserID string) error {
 	return r0
 }
 
+// RefreshToken provides a mock function with given fields: refreshToken
+func (_m *UserUsecase) RefreshToken(refreshToken string) (string, error) {
+	ret := _m.Called(refreshToken)
+
+	if len(ret) == 0 {
+		panic("no return value specified for RefreshToken")
+	}
+
+	var r0 string
+	var r1 error
+	if rf, ok := ret.Get(0).(func(string) (string, error)); ok {
+		return rf(refreshToken)
+	}
+	if rf, ok := ret.Get(0).(func(string) string); ok {
+		r0 = rf(refreshToken)
+	} else {
+		r0 = ret.Get(0).(string)
+	}
+
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(refreshToken)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // Register provides a mock function with given fields: user
 func (_m *UserUsecase) Register(user *domain.User) error {
 	ret := _m.Called(user)
@@ -124,6 +170,24 @@ func (_m *UserUsecase) Register(user *domain.User) error {
 	var r0 error
 	if rf, ok := ret.Get(0).(func(*domain.User) error); ok {
 		r0 = rf(user)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// ResetPassword provides a mock function with given fields: token, newPassword
+func (_m *UserUsecase) ResetPassword(token string, newPassword string) error {
+	ret := _m.Called(token, newPassword)
+
+	if len(ret) == 0 {
+		panic("no return value specified for ResetPassword")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string, string) error); ok {
+		r0 = rf(token, newPassword)
 	} else {
 		r0 = ret.Error(0)
 	}
