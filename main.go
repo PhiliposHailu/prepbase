@@ -60,7 +60,6 @@ func main() {
 	// Router
 	r := router.SetupRouter(userController, questionController, commentController, jwtSvc, cacheSvc)
 
-	log.Println("🚀 Server running on port 8080 ??? ;)")
+	log.Println("🚀 Server running on port 8000")
 	r.Run(":8000")
-
 }
